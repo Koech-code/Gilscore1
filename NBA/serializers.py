@@ -36,7 +36,7 @@ class CommentActionSerializer(serializers.Serializer):
 class TweetCreateSerializer(serializers.ModelSerializer):
     user = PublicProfileSerializer(source='user.profile', read_only=True) # serializers.SerializerMethodField(read_only=True)
     likes = serializers.SerializerMethodField(read_only=True)
-    image = serializers.SerializerMethodField()
+    #image = serializers.SerializerMethodField()
     class Meta:
         model = Tweet
         fields = ['user', 'id', 'content', 'likes','image', 'timestamp']
