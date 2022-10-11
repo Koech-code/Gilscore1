@@ -92,7 +92,7 @@ class CommentCreateSerializer(serializers.ModelSerializer):
 class CommentTweetSerializer(serializers.ModelSerializer):
     user = PublicProfileSerializer(source='user.profile', read_only=True)
     likes = serializers.SerializerMethodField(read_only=True)
-    image = serializers.SerializerMethodField()
+    #image = serializers.SerializerMethodField()
     parent = CommentCreateSerializer(read_only=True)
     class Meta:
         model = Comment
