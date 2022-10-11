@@ -118,9 +118,9 @@ class CommentTweetSerializer(serializers.ModelSerializer):
 
 class TweetSerializer(serializers.ModelSerializer):
     user = PublicProfileSerializer(source='user.profile', read_only=True)
-    tweets_comments = serializers.SerializerMethodField()
+    #tweets_comments = serializers.SerializerMethodField()
     likes = serializers.SerializerMethodField(read_only=True)
-    image = serializers.SerializerMethodField()
+    #image = serializers.SerializerMethodField()
     parent = TweetCreateSerializer(read_only=True)
     class Meta:
         model = Tweet
