@@ -1,15 +1,15 @@
 
-from django.urls import path
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from . views import RegisterView, LoginView, UserView, LogoutView
+from . views import RegisterView, LoginView, UserView, LogoutView, ProfileApi
 
 urlpatterns = [
     path('register/', RegisterView.as_view()),
     path('login/', LoginView.as_view()),
     path('user/', UserView.as_view()),
-    path('logout/', LogoutView.as_view())
-     
+    path('logout/', LogoutView.as_view()),  
+    path('profile/', ProfileApi.as_view()), 
 ]
 
 if settings.DEBUG:

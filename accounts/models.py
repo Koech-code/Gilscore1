@@ -51,3 +51,11 @@ class User(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS =['username']
+
+
+
+class UserProfile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    picture = models.ImageField(upload_to='profileImages/', blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)

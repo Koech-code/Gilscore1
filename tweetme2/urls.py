@@ -87,6 +87,7 @@ from Worldcup.views import (
 
 urlpatterns = [
     path('api/', include('accounts.urls')),
+    
     path('', home_view),
     path('Afcon/', Afconhome_view),
     path('Baseball/', Baseballhome_view),
@@ -133,6 +134,7 @@ urlpatterns = [
     path('api/Formula1/', include('Formula1.api.urls')),
     path('api/Champions/', include('Champions.api.urls')),
     re_path(r'api/profiles?/', include('profiles.api.urls')),
+    path('tweets/', include('tweets.api.urls')),
 ]
 
 if settings.DEBUG:

@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     # third-party
     'corsheaders',
     'rest_framework',
-    'knox',
     # internal
     'accounts',
     'profiles',
@@ -173,7 +172,6 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        'knox.auth.TokenAuthentication',
     ]
 }
 
