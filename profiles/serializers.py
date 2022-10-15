@@ -3,7 +3,7 @@ from rest_framework import serializers
 
 from django.contrib.auth import get_user_model
 
-from .models import Profile, ChampionLeague, AfconLeague, Baseball, Bundesliga, EuropaLeague, Formula1, Laliga, NBA, NFL, Worldcup
+from .models import Profile, ChampionLeague, AfconLeague, Baseball, Bundesliga, Formula1, Laliga, NBA, NFL, Worldcup
 from tweets.models import Tweet
 #from tweets.serializers import TweetSerializer
 from accounts.models import User
@@ -60,15 +60,15 @@ class PublicProfileSerializer(serializers.ModelSerializer):
     #feed = serializers.SerializerMethodField(read_only=True)
     follower_count = serializers.SerializerMethodField(read_only=True)
     following_count = serializers.SerializerMethodField(read_only=True)
-    Afcon = serializers.ImageField()
-    Baseball = serializers.ImageField()
-    Bundesliga = serializers.ImageField()
-    Europa = serializers.ImageField()
-    Formula1 = serializers.ImageField()
-    Laliga = serializers.ImageField()
-    NBA = serializers.ImageField()
-    NFL = serializers.ImageField()
-    Worldcup = serializers.ImageField()
+    # Afcon = serializers.ImageField()
+    # Baseball = serializers.ImageField()
+    # Bundesliga = serializers.ImageField()
+    # Europa = serializers.ImageField()
+    # Formula1 = serializers.ImageField()
+    # Laliga = serializers.ImageField()
+    # NBA = serializers.ImageField()
+    # NFL = serializers.ImageField()
+    # Worldcup = serializers.ImageField()
     # EnglishPremierLeague = serializers.ImageField(source='EnglishPremierLeague.icon')
     # Team = serializers.ImageField(source='Team.icon')
     class Meta:
@@ -76,25 +76,16 @@ class PublicProfileSerializer(serializers.ModelSerializer):
         fields = [
             "first_name",
             "last_name",
-            "id",
+            "is_following",
+            "user",
+            "following_count",
+            "follower_count",
             "image",
-            # "EnglishPremierLeague",
-            # "Team",
-            "Afcon",
-            "Baseball",
-            "Bundesliga",
-            "Europa",
-            "Formula1",
-            "Laliga",
-            "NBA",
-            "NFL",
-            "Worldcup",
-            "clubimage",
+            "club",
+            "club_icon",
             "bio",
             "location",
-            "follower_count",
-            "following_count",
-            "is_following",
+            "followers",
             "username",
            # "feed",
         ]
