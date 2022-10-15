@@ -1,8 +1,7 @@
 from django.contrib.auth import authenticate
 from rest_framework import serializers
 
-from .models import User, UserProfile
-
+from .models import User
 
 class RegistrationSerializer(serializers.ModelSerializer):
     """Serializers registration requests and creates a new user."""
@@ -79,11 +78,5 @@ class LoginSerializer(serializers.Serializer):
                 'This user has been deactivated.'
             )
 
-
-class ProfileSerializer(serializers.ModelSerializer):
-      class Meta:
-        model = UserProfile
-       
-        fields = ['user', 'picture']
 
    

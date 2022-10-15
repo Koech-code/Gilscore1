@@ -1,8 +1,8 @@
 from django.conf import settings
 from django.db import models
 from django.db.models.signals import post_save
+from accounts.models import User
 
-User = settings.AUTH_USER_MODEL
 
 CLUB_CHOICES = (
     ("Manchester", "Manchester"),
@@ -21,10 +21,7 @@ class ChampionLeague(models.Model):
         return f'{self.icon.url}'
 
 
-class EnglishPremierLeague(models.Model):
-    icon = models.ImageField(blank=True, null=True, upload_to='images/club')
-    def __str__(self):
-        return f'{self.icon.url}'
+
 
 
 class EuropaLeague(models.Model):
@@ -97,8 +94,8 @@ class Profile(models.Model):
     NBA = models.ForeignKey(NBA, on_delete=models.CASCADE, default = "", null=True)
     NFL = models.ForeignKey(NFL, on_delete=models.CASCADE, default = "", null=True)
     Worldcup = models.ForeignKey(Worldcup, on_delete=models.CASCADE, default = "", null=True)
-    Team = models.ForeignKey(ChampionLeague, on_delete=models.CASCADE, default = "", null=True)
-    EnglishPremierLeague = models.ForeignKey(EnglishPremierLeague, on_delete=models.CASCADE, default = "", null=True)
+    # Team = models.ForeignKey(ChampionLeague, on_delete=models.CASCADE, default = "", null=True)
+    # EnglishPremierLeague = models.ForeignKey(EnglishPremierLeague, on_delete=models.CASCADE, default = "", null=True)
     bio = models.TextField(blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -108,11 +105,11 @@ class Profile(models.Model):
     project_obj.followers.all() -> All users following this profile
     user.following.all() -> All user profiles I follow
     """
-def user_did_save(sender, instance, created, *args, **kwargs):
-    if created:
-        Profile.objects.get_or_create(user=instance)
+    def user_did_save(sender, instance, created, *args, **kwargs):
+        if created:
+            Profile.objects.get_or_create(user=instance)
 
-post_save.connect(user_did_save, sender=User)
+    post_save.connect(user_did_save, sender=User)
 
 
 # after the user logs in -> verify profile

@@ -3,11 +3,10 @@ from rest_framework import serializers
 
 from django.contrib.auth import get_user_model
 
-from .models import Profile, EnglishPremierLeague, ChampionLeague, AfconLeague, Baseball, Bundesliga, EuropaLeague, Formula1, Laliga, NBA, NFL, Worldcup
+from .models import Profile, ChampionLeague, AfconLeague, Baseball, Bundesliga, EuropaLeague, Formula1, Laliga, NBA, NFL, Worldcup
 from tweets.models import Tweet
 #from tweets.serializers import TweetSerializer
-
-User = get_user_model()
+from accounts.models import User
 
 class UserProfileSerializer(serializers.ModelSerializer):
     location = serializers.CharField(required=False)
@@ -38,7 +37,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     username = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = Profile
-        fields = ['location', 'bio', 'first_name','last_name','image', 'email', 'username','clubimage','Team','EnglishPremierLeague', 'Afcon', 'Baseball', 'Bundesliga', 'Europa','Formula1', 'Laliga', 'NBA', 'NFL', 'Worldcup']
+        fields = ['location', 'bio', 'first_name','last_name','image', 'email', 'username','clubimage', 'Afcon', 'Baseball', 'Bundesliga', 'Europa','Formula1', 'Laliga', 'NBA', 'NFL', 'Worldcup']
     def get_username(self, obj):
         return obj.user.username
 
@@ -61,17 +60,17 @@ class PublicProfileSerializer(serializers.ModelSerializer):
     #feed = serializers.SerializerMethodField(read_only=True)
     follower_count = serializers.SerializerMethodField(read_only=True)
     following_count = serializers.SerializerMethodField(read_only=True)
-    Afcon = serializers.ImageField(source='Afcon.icon')
-    Baseball = serializers.ImageField(source='Baseball.icon')
-    Bundesliga = serializers.ImageField(source='Bundesliga.icon')
-    Europa = serializers.ImageField(source='Europa.icon')
-    Formula1 = serializers.ImageField(source='Formula1.icon')
-    Laliga = serializers.ImageField(source='Laliga.icon')
-    NBA = serializers.ImageField(source='NBA.icon')
-    NFL = serializers.ImageField(source='NFL.icon')
-    Worldcup = serializers.ImageField(source='Worldcup.icon')
-    EnglishPremierLeague = serializers.ImageField(source='EnglishPremierLeague.icon')
-    Team = serializers.ImageField(source='Team.icon')
+    Afcon = serializers.ImageField()
+    Baseball = serializers.ImageField()
+    Bundesliga = serializers.ImageField()
+    Europa = serializers.ImageField()
+    Formula1 = serializers.ImageField()
+    Laliga = serializers.ImageField()
+    NBA = serializers.ImageField()
+    NFL = serializers.ImageField()
+    Worldcup = serializers.ImageField()
+    # EnglishPremierLeague = serializers.ImageField(source='EnglishPremierLeague.icon')
+    # Team = serializers.ImageField(source='Team.icon')
     class Meta:
         model = Profile
         fields = [
@@ -79,8 +78,8 @@ class PublicProfileSerializer(serializers.ModelSerializer):
             "last_name",
             "id",
             "image",
-            "EnglishPremierLeague",
-            "Team",
+            # "EnglishPremierLeague",
+            # "Team",
             "Afcon",
             "Baseball",
             "Bundesliga",

@@ -4,8 +4,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.exceptions import AuthenticationFailed
-from .serializers import RegistrationSerializer,  LoginSerializer, ProfileSerializer
-from .models import User, UserProfile
+from .serializers import RegistrationSerializer,  LoginSerializer
+from .models import User
 import jwt
 import datetime
 from django.conf import settings
@@ -93,15 +93,3 @@ class LogoutView(APIView):
 
         return response
 
-
-class ProfileApi(APIView):
-    def post(self, request):
-        profile_serializer = ProfileSerializer(data=request.data)
-
-        if profile_serializer.is_valid(raise_exception=True):
-            profile_serializer.save()
-            return Response(profile_serializer.data,
-                            status=status.HTTP_201_CREATED)
-        else:
-            return Response(profile_serializer.errors,
-                            status=status.HTTP_400_BAD_REQUEST)

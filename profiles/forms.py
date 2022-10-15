@@ -2,7 +2,7 @@ from django import forms
 from accounts.models import User
 from django.forms import ModelChoiceField
 
-from .models import Profile, EnglishPremierLeague, ChampionLeague, AfconLeague, Baseball, Bundesliga, EuropaLeague, Formula1, Laliga, NBA, NFL, Worldcup
+from .models import Profile, ChampionLeague, AfconLeague, Baseball, Bundesliga, EuropaLeague, Formula1, Laliga, NBA, NFL, Worldcup
 
 
 class UserProfileForm(forms.ModelForm):
@@ -33,7 +33,7 @@ class ProfileForm(forms.ModelForm):
     email = forms.CharField(required=False)
     class Meta:
         model = Profile
-        fields = ['location', 'bio', 'image', 'clubimage','Team','EnglishPremierLeague', 'Afcon', 'Baseball', 'Bundesliga', 'Europa','Formula1', 'Laliga', 'NBA', 'NFL', 'Worldcup']
+        fields = ['location', 'bio', 'image', 'clubimage', 'Afcon', 'Baseball', 'Bundesliga', 'Europa','Formula1', 'Laliga', 'NBA', 'NFL', 'Worldcup']
 
 
 class ProfileBasicForm(forms.Form):

@@ -14,8 +14,8 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from ..models import Profile
 from ..serializers import ProfileSerializer, PublicProfileSerializer
+from accounts.models import User
 
-User = get_user_model()
 ALLOWED_HOSTS = settings.ALLOWED_HOSTS
 
 # @api_view(['GET'])
@@ -40,12 +40,6 @@ def profile_update_view(request, username, *args, **kwargs):
             serializer.save()
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
-
-    
-
-
-    
-
 
 @api_view(['GET', 'POST'])
 def profile_detail_api_view(request, username, *args, **kwargs):
