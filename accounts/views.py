@@ -5,7 +5,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.exceptions import AuthenticationFailed
 from .serializers import RegistrationSerializer,  LoginSerializer
-from .models import User
+from django.contrib.auth.models import User
 import jwt
 import datetime
 from django.conf import settings

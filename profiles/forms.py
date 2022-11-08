@@ -1,6 +1,8 @@
 from django import forms
-from accounts.models import User
+from django.contrib.auth import get_user_model
 from django.forms import ModelChoiceField
+
+User = get_user_model()
 
 from .models import Profile
 class UserProfileForm(forms.ModelForm):
@@ -22,7 +24,7 @@ class UserProfileForm(forms.ModelForm):
     Team = forms.ImageField(required=False)
     class Meta:
         model = User
-        fields = ['username', 'email',]
+        fields = ['first_name', 'last_name', 'email',]
 
 
 class ProfileForm(forms.ModelForm):
@@ -37,8 +39,6 @@ class ProfileForm(forms.ModelForm):
             "last_name",
             "email",
             "image",
-            # "club",
-            "club_icon",
             "bio",
             "location",
             "followers",

@@ -12,9 +12,10 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
-from ..models import Profile
+from ..models import NBA, Laliga, Profile, Worldcup
 from ..serializers import ProfileSerializer, PublicProfileSerializer
-from accounts.models import User
+from rest_framework.views import APIView
+from django.contrib.auth.models import User
 
 ALLOWED_HOSTS = settings.ALLOWED_HOSTS
 
@@ -25,6 +26,7 @@ ALLOWED_HOSTS = settings.ALLOWED_HOSTS
 #     to_follow_user = ??
 #     return Response({}, status=200)
 @api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
 def profile_update_view(request, username, *args, **kwargs):
     qs = Profile.objects.filter(user__username=username)
     if not qs.exists():
@@ -42,6 +44,7 @@ def profile_update_view(request, username, *args, **kwargs):
         return Response(serializer.errors, status=400)
 
 @api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
 def profile_detail_api_view(request, username, *args, **kwargs):
     # get the profile for the passed username
     qs = Profile.objects.filter(user__username=username)
@@ -70,6 +73,7 @@ def get_paginated_queryset_response(qs, request):
     return paginator.get_paginated_response(serializer.data) 
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def tweet_list_view(request, *args, **kwargs):
     qs = Profile.objects.all()
     username = request.GET.get('username') # ?username=Justin
@@ -101,3 +105,54 @@ def tweet_list_view(request, *args, **kwargs):
 #         pass
 #     data = PublicProfileSerializer(instance=profile, context={"request": request})
 #     return Response(data.data, status=200)
+
+class GetUserProfileView(APIView):
+    def get(self, request, format=None):
+        # try:
+            user = self.request.user
+            username = user.username
+            user = User.objects.get(id=user.id)
+            user_profile = Profile.objects.get(user=user)
+
+            user_profile_serializer = ProfileSerializer(user_profile)
+            return Response({'profile': user_profile_serializer.data, 'username': str(username)})
+        # except:
+        #     return Response({'error': 'Error occurred when trying to get user profile'})
+
+
+@permission_classes([IsAuthenticated])
+class UpdateUserProfileView(APIView):
+    def put(self, request, format=None):
+        # try:
+            user = self.request.user
+            username = user.username
+
+            data = self.request.data
+            
+            # first_name = data['first_name']
+            # last_name = data['last_name']
+            image = data['image']
+            Afcon = data['Afcon']
+            Baseball = data['Baseball']
+            Bundesliga = data['Bundesliga']
+            Europa = data['Europa']
+            Formula1 = data['Formula1']
+            Laliga = data['Laliga']
+            NBA = data['NBA']
+            NFL = data['NFL']
+            Worldcup = data['Worldcup']
+            bio = data['bio']
+            location = data['location']
+            
+
+            user = User.objects.get(id=user.id)
+            Profile.objects.filter(user=user).update(image=image, Afcon=Afcon, Baseball=Baseball,
+             Bundesliga=Bundesliga, Europa=Europa, Formula1=Formula1, Laliga=Laliga, NBA=NBA, NFL=NFL, Worldcup=Worldcup, bio=bio, location=location)
+
+            user_profile = Profile.objects.get(user=user)
+
+            user_profile_serializer = PublicProfileSerializer(user_profile)
+            return Response({'profile': user_profile_serializer.data, 'username': str(username)})
+        
+        # except:
+        #     return Response({'error': 'Something went wrong when trying to update user profile.'})

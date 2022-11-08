@@ -86,7 +86,7 @@ from Worldcup.views import (
 
 
 urlpatterns = [
-    path('api/', include('accounts.urls')),
+    #path('api/', include('accounts.urls')),
     
     path('', home_view),
     path('Afcon/', Afconhome_view),
@@ -128,7 +128,7 @@ urlpatterns = [
     path('api/Bundesliga/', include('Bundesliga.api.urls')),
     path('api/Worldcup/', include('Worldcup.api.urls')),
     path('api/Afcon/', include('Afcon.api.urls')),
-    
+    path('api/accounts/', include('accounts.api.urls')),
     path('api/Baseball/', include('Baseball.api.urls')),
     path('api/Europa/', include('Europa.api.urls')),
     path('api/Formula1/', include('Formula1.api.urls')),
